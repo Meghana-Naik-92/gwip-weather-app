@@ -1,19 +1,13 @@
 import axios from 'axios';
 
-// Automatically choose baseURL based on whether you are running locally or in production
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:8080/api'
-    : 'https://gwip-backend.onrender.com/api';
-
-// Create an Axios instance pointing to your Spring Boot backend
+// Temporarily point directly to your live Render backend to test
 const api = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: 'https://gwip-backend.onrender.com/api',
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-// Request interceptor to automatically attach the JWT token if available
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('jwt_token');

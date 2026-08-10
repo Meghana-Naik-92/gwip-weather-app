@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 export default function AuthCard({ onLoginSuccess }) {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -20,7 +20,7 @@ export default function AuthCard({ onLoginSuccess }) {
 
     try {
       if (isRegistering) {
-        await axios.post('http://localhost:8080/api/auth/register', {
+        await api.post('/auth/register', {
           username: formData.username,
           email: formData.email,
           password: formData.password
@@ -28,7 +28,7 @@ export default function AuthCard({ onLoginSuccess }) {
         setIsRegistering(false);
         alert('Registration successful! Please sign in.');
       } else {
-        const response = await axios.post('http://localhost:8080/api/auth/login', {
+        const response = await api.post('/auth/login', {
           usernameOrEmail: formData.username,
           password: formData.password
         });
