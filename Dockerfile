@@ -1,16 +1,16 @@
-# Stage 1: Build the application
+# Stage 1: Build the application using standard Maven
 FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /workspace/app
 
-COPY mvnw .
-COPY .mvn .mvn
+# Install Maven directly into the container
+RUN apk add --no-cache maven
+
+# Copy project description and source code
 COPY pom.xml .
 COPY src src
 
-# Fix Windows line endings and make mvnw executable
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
-
-RUN ./mvnw clean package -DskipTests
+# Build the app using standard mvn
+RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
 FROM eclipse-temurin:17-jre-alpine
