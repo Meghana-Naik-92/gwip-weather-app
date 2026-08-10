@@ -1,8 +1,13 @@
 import axios from 'axios';
 
+// Automatically choose baseURL based on whether you are running locally or in production
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:8080/api'
+    : 'https://gwip-backend.onrender.com/api';
+
 // Create an Axios instance pointing to your Spring Boot backend
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
