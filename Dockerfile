@@ -6,6 +6,9 @@ COPY mvnw .
 COPY pom.xml .
 COPY src src
 
+# Fix Windows line endings and make mvnw executable
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
+
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Run the application
