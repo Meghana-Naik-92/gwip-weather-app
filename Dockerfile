@@ -1,5 +1,5 @@
-# Stage 1: Build the application using standard Maven
-FROM eclipse-temurin:17-jdk-alpine AS build
+# Stage 1: Build the application using Java 21 and Maven
+FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /workspace/app
 
 # Install Maven directly into the container
@@ -12,8 +12,8 @@ COPY src src
 # Build the app using standard mvn
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the application
-FROM eclipse-temurin:17-jre-alpine
+# Stage 2: Run the application using Java 21 JRE
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /workspace/app/target/*.jar app.jar
 
