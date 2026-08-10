@@ -1,9 +1,8 @@
-# Stage 1: Build the application using Maven wrapper
+# Stage 1: Build the application
 FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /workspace/app
 
 COPY mvnw .
-COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
