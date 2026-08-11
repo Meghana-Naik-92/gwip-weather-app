@@ -13,22 +13,29 @@ public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
         CorsConfiguration config = new CorsConfiguration();
 
-        // Allow credentials (like Authorization headers with JWT tokens)
+        // Allow your Vercel frontend
+        config.setAllowedOrigins(
+                Arrays.asList("https://gwip-weather-app-teal.vercel.app")
+        );
+
+        // Allow credentials
         config.setAllowCredentials(true);
 
-        // Allow all origins (you can restrict this to your frontend URL later if needed)
-        config.setAllowedOriginPatterns(Arrays.asList("*"));
+        // Allow HTTP methods
+        config.setAllowedMethods(
+                Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        );
 
-        // Allow standard HTTP methods
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // Allow all headers (including Authorization)
+        // Allow headers including Authorization
         config.setAllowedHeaders(Arrays.asList("*"));
 
         source.registerCorsConfiguration("/**", config);
+
         return new CorsFilter(source);
     }
 }
