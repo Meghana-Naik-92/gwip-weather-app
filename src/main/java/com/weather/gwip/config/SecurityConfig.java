@@ -43,7 +43,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://gwip-weather-app-teal.vercel.app"
+                "https://gwip-weather-app-5mbr-alpha.vercel.app",
+                "https://gwip-weather-app-teal.vercel.app" // Keep this just in case
         ));
 
         configuration.setAllowedMethods(List.of(
